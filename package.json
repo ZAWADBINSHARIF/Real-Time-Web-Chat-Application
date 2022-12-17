@@ -1,0 +1,29 @@
+{
+  "name": "real-time-web-chat-application",
+  "version": "1.0.0",
+  "description": "This is Real Time Web base Chat Application",
+  "main": "app.js",
+  "scripts": {
+    "prod": "SET NODE_ENV=production && node app.js",
+    "dev": "SET NODE_ENV=development && nodemon app.js -e js,json,ejs"
+  },
+  "author": "Zawad Bin Sharif",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.8.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}
