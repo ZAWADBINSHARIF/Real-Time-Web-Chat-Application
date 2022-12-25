@@ -1,5 +1,5 @@
 {
-  "name": "Web-chat-application",
+  "name": "real_time_web_chat_application",
   "version": "1.0.0",
   "description": "This is Real Time Web base Chat Application",
   "main": "app.js",
