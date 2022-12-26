@@ -25,7 +25,7 @@ function singleUploader(
         "-" +
         Date.now();
 
-      cb(null, fileName);
+      cb(null, fileName + fileExt);
     },
   });
   const upload = multer({
@@ -34,7 +34,7 @@ function singleUploader(
       fileSize: fileSizeLimit,
     },
     fileFilter: (req, file, cb) => {
-      if (allowedFileType.include(path.extname(file.originalname))) {
+      if (allowedFileType.includes(file.mimetype)) {
         cb(null, true);
       } else {
         cb(createError(errorMessage));
