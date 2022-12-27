@@ -13,7 +13,7 @@ function singleUploader(
     destination: function (req, file, cb) {
       cb(null, uploaderFolder);
     },
-    filename: function (req, file, cd) {
+    filename: function (req, file, cb) {
       const fileExt = path.extname(file.originalname);
 
       const fileName =
