@@ -5,19 +5,14 @@
       <h2>Create New User</h2>
     </div>
     <div class="modal-body">
-      <form
-        method="post"
-        action="/users"
-        enctype="multipart/form-data"
-        id="add-user-form"
-      >
+      <form enctype="multipart/form-data" id="add-user-form">
         <input type="text" placeholder="enter name" name="name" />
         <p class="error name-error"></p>
 
         <input type="text" placeholder="enter email" name="email" />
         <p class="error email-error"></p>
 
-        <input type="text" placeholder="enter mobile" name="mobile" />
+        <input type="text" placeholder="+88017XXXXXXXX" name="mobile" />
         <p class="error mobile-error"></p>
 
         <input type="password" placeholder="enter password" name="password" />
@@ -36,6 +31,11 @@
 <script>
   const modal = document.querySelector("#add-user-modal");
   const form = document.querySelector("#add-user-form");
+
+  const successToast = Toastify({
+    text: "User was added successfully! Reloading the list...",
+    duration: 1000,
+  });
 
   function closeModal() {
     modal.style.display = "none";
@@ -66,7 +66,11 @@
     });
     // get response
     let result = await response.json();
-    console.log(Object.keys(result.errors).length);
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++
+
     // handle error and response
     if (result.errors) {
       // errors
@@ -81,7 +85,7 @@
       });
     } else {
       // success
-      console.log("OKAY");
+      successToast.showToast();
       closeModal();
       document.querySelector("p.error").style.display = "none";
       // reload the page after 1 second

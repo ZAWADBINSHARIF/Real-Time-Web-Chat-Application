@@ -15,7 +15,7 @@ const indexRoute = require('./routers/indexRoute')
 const usersRoute = require('./routers/usersRoute') 
 const { notFoundHandler, errorHandler } = require('./middlewares/common/errorHandler');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 // json parser
 app.use(express.json());

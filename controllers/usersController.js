@@ -1,13 +1,18 @@
 // internal import
 const bcrypt = require('bcrypt')
+const { unlink } = require('fs')
+const path = require('path')
 
 // external import
 const User = require('../models/listOfUsers')
 
 // get users page
-function getUsers(req, res, next) {
+async function getUsers(req, res, next) {
     try {
-        res.render('users')
+        const allUsers = await User.find()
+        res.render('users', {
+            users: allUsers
+        })
     } catch (error) {
         next(error)
     }
@@ -33,29 +38,53 @@ async function addNewUser(req, res, next) {
 
     // save user or send error
 
-    const result = await newUser.save();
+    try {
+        await newUser.save();
+        return res.status(200).json({
+            message: "User was added successfully"
+        })
+    } catch (err) {
+        if (err) {
+            return res.status(500).json({
+                errors: {
+                    common: { msg: err.message }
+                }
+            })
+        }
+    }
+}
 
-    // try {
-    //     const result = await newUser.save()
-    //     res.status(200).json(
-    //         {
-    //             message: "User was added successfully!"
-    //         }
-    //     )
-    // } catch (error) {
-    //     res.status(500).json(
-    //         {
-    //             errors: {
-    //                 common: {
-    //                     msg: error.message
-    //                 }
-    //             }
-    //         }
-    //     )
-    // }
+async function deleteUser(req, res, next) {
+    try {
+        const user = await User.findByIdAndDelete({
+            _id: req.params.id
+        })
+
+        if (user.avatar) {
+            unlink(path.join(__dirname + "/../public/uploads/avatars/" + user.avatar),
+                err => { if (err) console.log(err) }
+            )
+        }
+
+        res.status(200).json({
+            message: 'User was removed successfully'
+        })
+
+    } catch (error) {
+        if (error) {
+            throw res.status(500).json({
+                errors: {
+                    common: {
+                        msg: error.message
+                    }
+                }
+            })
+        }
+    }
 }
 
 module.exports = {
     getUsers,
-    addNewUser
+    addNewUser,
+    deleteUser
 }
