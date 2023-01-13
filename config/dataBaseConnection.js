@@ -12,6 +12,8 @@ async function connectDB() {
     } catch (error) {
         if (error) console.log({message:error});
     }
+
+    mongoose.set('strictQuery', false);
 }
 
 module.exports = connectDB;

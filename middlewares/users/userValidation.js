@@ -56,14 +56,14 @@ const userValidationHandler = (req, res, next) => {
         next()
     } else {
         if (req.files.length > 0) {
-            const fileName = req.files[0]
-            unlink(path.join(__dirname, `../../public/uploads/avatars/${fileName}`)),
-                err => { if (err) throw console.log(err) }
+            const fileName = req.files[0].filename;
+            unlink(path.join(__dirname, `../../public/uploads/avatars/${fileName}`),
+                err => { if (err) throw console.log(err) })
         }
         res.status(500).json({
             errors: mappedErrors
         })
-    } 
+    }
 }
 
 module.exports = {
